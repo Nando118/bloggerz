@@ -43,4 +43,6 @@ Route::get('/about', function () {
 // Blog
 Route::get('/blog', [PostController::class, 'index']);
 // Blog - Single Post Routes
-Route::get('/post/{slug}', [PostController::class, 'show']);
+Route::get('/post/{slug:slug}', [PostController::class, 'show']);
+// Router di atas ini akan menggunakan wild card {...}, jadi apapun yang ada di dalam tanda {...} itu adalah wild card nya
+// Kemudian nilai wildcard nya ini akan dijadikan sebagai parameter pada function show maupun function lain yang wajib/harus memasukan parameter yang dikirim dari routes

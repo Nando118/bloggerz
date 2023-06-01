@@ -14,10 +14,9 @@ class PostController extends Controller
         ]);
     }
 
-    public function show($slug){
-        // Router di atas ini akan menggunakan wild card {...}, jadi apapun yang ada di dalam tanda {...} itu adalah wild card nya
-
-        $result_post = Post::find($slug);
+    public function show(Post $slug){        
+        // Perlu diperhatikan, untuk pengguanaan slug ataupun Routes Model Binding. Nama parameter pada functionnya itu wajib sama dengan nama parameter di wildcard routes nya
+        $result_post = $slug;
 
         return view('post', [
             'title' => 'Post ' . $result_post['title'],
