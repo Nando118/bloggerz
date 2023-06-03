@@ -14,14 +14,17 @@ class PostController extends Controller
         ]);
     }
 
-    public function show(Post $slug){        
-        // Perlu diperhatikan, untuk pengguanaan slug ataupun Routes Model Binding. Nama parameter pada functionnya itu wajib sama dengan nama parameter di wildcard routes nya
-        $result_post = $slug;
+    public function show(Post $post){  
+        // Parameter $post ini di dapat dari hasil passing value pada routes
+        // Hasil dari $post ini adalah object Post yang seluruh nilai properties nya sudah diisi secara otomatis oleh Laravel
+        // Laravel secara otomatis akan mengisi value pada properties nya berdasarkan nilai slug yang diberikan melalui URL (passing value dari routes)
+        // Jadinya kita bisa menggunakan seluruh properties yang sudah terisi value nya beserta function-function yang ada pada model Post
+        // Yang perlu diperhatikan adalah untuk pengguanaan slug ataupun Routes Model Binding. Nama parameter pada functionnya itu wajib sama dengan nama parameter di wildcard routes nya
 
         return view('post', [
-            'title' => 'Post ' . $result_post['title'],
-            'title_post' => $result_post['title'],
-            'post' => $result_post,
+            'title' => 'Post ' . $post->title,
+            'title_post' => $post->title,
+            'post' => $post,
         ]);
     }
 }

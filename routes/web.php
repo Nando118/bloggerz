@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -42,7 +43,25 @@ Route::get('/about', function () {
 
 // Blog
 Route::get('/blog', [PostController::class, 'index']);
+
 // Blog - Single Post Routes
-Route::get('/post/{slug:slug}', [PostController::class, 'show']);
+Route::get('/post/{post:slug}', [PostController::class, 'show']);
 // Router di atas ini akan menggunakan wild card {...}, jadi apapun yang ada di dalam tanda {...} itu adalah wild card nya
-// Kemudian nilai wildcard nya ini akan dijadikan sebagai parameter pada function show maupun function lain yang wajib/harus memasukan parameter yang dikirim dari routes
+// Nantinya nilai dari wildcard ini akan digunakan sebagai parameter pada function show() di PostController
+
+// Blog - Category Posts
+Route::get('/categories', function(){
+    return view('categories', [
+        'title' => 'Categories',
+        'categories' => Category::all(),
+    ]);
+});
+
+// Blog - Category Post
+Route::get('/categories/{category:slug}', function(Category $category){
+    return view('category', [
+        'title' => $category->name,
+        'blog_posts' => $category->post,
+        'category' => $category->name,
+    ]);
+});

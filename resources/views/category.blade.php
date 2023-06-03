@@ -4,6 +4,7 @@
 
 {{-- Content --}}
 @section('content')
+  <h1 class="mb-5">Post Category : {{ $category }}</h1>
     @foreach ($blog_posts as $blog_post)
         <article class="mb-5">
           <h2><a href="/post/{{ $blog_post->slug }}">{{ $blog_post->title }}</a></h2>
