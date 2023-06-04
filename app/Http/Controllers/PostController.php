@@ -10,7 +10,7 @@ class PostController extends Controller
     public function index(){
         return view('blog', [
             'title' => 'Blog',
-            'blog_posts' => Post::all(),
+            'posts' => Post::latest()->get(),
         ]);
     }
 
@@ -22,8 +22,7 @@ class PostController extends Controller
         // Yang perlu diperhatikan adalah untuk pengguanaan slug ataupun Routes Model Binding. Nama parameter pada functionnya itu wajib sama dengan nama parameter di wildcard routes nya
 
         return view('post', [
-            'title' => 'Post ' . $post->title,
-            'title_post' => $post->title,
+            'title' => $post->title,
             'post' => $post,
         ]);
     }
