@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        return view('blog', [
-            'title' => 'Blog',
-            'posts' => Post::latest()->get(),
+
+        // Dapatkan data req yang dikirim dari form
+        // dd(request('search'));
+
+        return view('posts', [
+            'title' => 'All Posts',
+            'active' => 'posts',
+            // Eager Loading, load seluruh data dalam sekali trigger
+            'posts' => Post::latest()->searchFilters(request(['search']))->get(),
         ]);
     }
 
@@ -23,6 +29,7 @@ class PostController extends Controller
 
         return view('post', [
             'title' => $post->title,
+            'active' => 'posts',
             'post' => $post,
         ]);
     }

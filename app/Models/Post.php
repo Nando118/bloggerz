@@ -13,6 +13,19 @@ class Post extends Model
         'id',
     ];
 
+    protected $with = [
+        'category',
+        'author',
+    ];
+
+    public function scopeSearchFilters($query, array $searchFilters)
+    {
+        if (isset($searchFilters['search']) ? $searchFilters['search'] : false) {
+            return $query->where('title', 'like', '%' . $searchFilters['search'] . '%')
+                    ->orWhere('body', 'like', '%' . $searchFilters['search'] . '%');
+        }
+    }
+
     /**
      * Get the category that owns the Post
      *

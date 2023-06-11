@@ -22,11 +22,7 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('home',[
         'title' => 'Home',
-    ]);
-});
-Route::get('/home', function () {
-    return view('home', [
-        'title' => 'Home',
+        'active' => 'home',
     ]);
 });
 
@@ -35,6 +31,7 @@ Route::get('/home', function () {
 Route::get('/about', function () {
     return view('about', [
         'title' => 'About',
+        'active' => 'about',
         'name' => 'Fernando Verdy Sunata',
         'email' => 'fernandoverdysunata@email.com',
         'image_name' => 'ganondorf.png'
@@ -43,34 +40,37 @@ Route::get('/about', function () {
 
 
 // Blog
-Route::get('/blog', [PostController::class, 'index']);
+Route::get('/posts', [PostController::class, 'index']);
 
 // Blog - Single Post Routes
 Route::get('/post/{post:slug}', [PostController::class, 'show']);
 // Router di atas ini akan menggunakan wild card {...}, jadi apapun yang ada di dalam tanda {...} itu adalah wild card nya
 // Nantinya nilai dari wildcard ini akan digunakan sebagai parameter pada function show() di PostController
 
-// Blog - Category Posts
+// Blog - Category
 Route::get('/categories', function(){
     return view('categories', [
-        'title' => 'Categories',
+        'title' => 'All Categories',
+        'active' => 'categories',
         'categories' => Category::all(),
     ]);
 });
 
 // Blog - Category Post
 Route::get('/categories/{category:slug}', function(Category $category){
-    return view('category', [
-        'title' => $category->name,
-        'blog_posts' => $category->post,
-        'category' => $category->name,
+    return view('posts', [
+        'title' => 'Post By Category : ' . $category->name,
+        'active' => 'categories',
+        'posts' => $category->post->load(['author', 'category']),
     ]);
 });
 
 // Blog - User Post
 Route::get('/author/{author:username}', function(User $author){
-    return view('blog', [
-        'title' => $author->name,
-        'posts' => $author->post,
+    return view('posts', [
+        // Lazy Eager Loading, load seluruh data saat parent ditemukan
+        'title' => 'Post By Author : ' . $author->name,
+        'active' => 'posts',
+        'posts' => $author->post->load(['author', 'category']),
     ]);
 });
