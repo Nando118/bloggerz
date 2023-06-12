@@ -57,20 +57,20 @@ Route::get('/categories', function(){
 });
 
 // Blog - Category Post
-Route::get('/categories/{category:slug}', function(Category $category){
-    return view('posts', [
-        'title' => 'Post By Category : ' . $category->name,
-        'active' => 'categories',
-        'posts' => $category->post->load(['author', 'category']),
-    ]);
-});
+// Route::get('/categories/{category:slug}', function(Category $category){
+//     return view('posts', [
+//         'title' => 'Post By Category : ' . $category->name,
+//         'active' => 'categories',
+//         'posts' => $category->post->load(['author', 'category']),
+//     ]);
+// });
 
 // Blog - User Post
-Route::get('/author/{author:username}', function(User $author){
-    return view('posts', [
-        // Lazy Eager Loading, load seluruh data saat parent ditemukan
-        'title' => 'Post By Author : ' . $author->name,
-        'active' => 'posts',
-        'posts' => $author->post->load(['author', 'category']),
-    ]);
-});
+// Route::get('/author/{author:username}', function(User $author){
+//     return view('posts', [
+//         // Lazy Eager Loading, load seluruh data saat parent ditemukan
+//         'title' => 'Post By Author : ' . $author->name,
+//         'active' => 'posts',
+//         'posts' => $author->post->load(['author', 'category']),
+//     ]);
+// });

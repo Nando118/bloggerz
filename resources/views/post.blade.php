@@ -11,7 +11,7 @@
       <div class="col-md-8">
         
         <h2>{{ $post->title }}</h2>
-        <p class="mb-4">By: <a href="/author/{{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> in <em><a href="/categories/{{ $post->category->slug }}" class="text-decoration-none">{{ $post->category->name }}</em></a></p>
+        <p class="mb-4">By: <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> in <em><a href="/posts?category={{ $post->category->slug }}" class="text-decoration-none">{{ $post->category->name }}</em></a></p>
         
         <img src="https://source.unsplash.com/1200x400/?{{ $post->category->name }}" class="img-fluid" alt="{{ $post->category->name }}">
 
