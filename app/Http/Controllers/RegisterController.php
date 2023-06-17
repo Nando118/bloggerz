@@ -27,6 +27,9 @@ class RegisterController extends Controller
             'password' => 'required|min:6|max:255',
         ]);
 
+        // Trim spasi pada username
+        $validatedData['username'] = strtolower(str_replace(' ', '', $validatedData['username']));
+
         // $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['password'] = Hash::make($validatedData['password']);
 
