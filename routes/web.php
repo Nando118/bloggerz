@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,7 +88,7 @@ Route::get('/categories', function(){
 
 Route::middleware(['guest'])->group(function () {
     // Login
-    Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+    Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login');
     Route::post('/login', [LoginController::class, 'authenticate']);
 
     // Register
@@ -101,5 +102,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
 
    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index']); 
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::resource('/dashboard/posts', DashboardPostController::class);
 });
