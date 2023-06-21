@@ -101,7 +101,8 @@ Route::middleware(['auth'])->group(function () {
     // Logout
     Route::post('/logout', [LoginController::class, 'logout']);
 
-   // Dashboard
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::resource('/dashboard/posts', DashboardPostController::class);
+    Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
 });
