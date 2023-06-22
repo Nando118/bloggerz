@@ -103,6 +103,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::resource('/dashboard/posts', DashboardPostController::class);
+    // Jika kita menggunakan Routes::resource lalu kita 
     Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
+    Route::resource('/dashboard/posts', DashboardPostController::class);
 });
