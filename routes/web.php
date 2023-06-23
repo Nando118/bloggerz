@@ -103,7 +103,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    // Jika kita menggunakan Routes::resource lalu kita 
+    
+    // Jika kita menggunakan Routes::resource lalu kita ada kebutuha misalnya membuat route custom untuk keperluan tertentu
+    // Maka, sangat disarankan untuk membuat dan meletakan route custom tersebut di atas atau sebelum pemanggilan route resource
+    // Tujuannya agar tidak terjadi bentrokbentrok atau salah panggil route, karena Laravel akan memanggil routes yang sekiranya cocok dan sesuai dengan yang dibuat pada routes
+    // Lalu, penting juga untuk membuat route url berbeda dari Route::resource. Tujuannya sama, untuk menghindari terjadinya bentrok atau salah panggil route
     Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
     Route::resource('/dashboard/posts', DashboardPostController::class);
 });

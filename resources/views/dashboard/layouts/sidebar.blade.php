@@ -13,6 +13,12 @@
           My Posts
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/posts">
+          <span data-feather="file-text"></span>
+          Back to Blog Posts
+        </a>
+      </li>
     </ul>
   </div>
 </nav>
