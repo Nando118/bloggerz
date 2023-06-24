@@ -94,6 +94,10 @@ class DashboardPostController extends Controller
     public function edit(Post $post)
     {
         //
+        return view('dashboard.posts.edit', [
+            'post' => $post,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -106,6 +110,30 @@ class DashboardPostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
+        $rules = [
+            'title' => 'required|max:255',            
+            'category_id' => 'required',
+            'body' => 'required',
+        ];
+
+        if ($request->slug != $post->slug) {
+            # code...
+            $rules['slug'] = 'required|unique:posts|max:255';
+        }
+        
+        $validatedData = $request->validate($rules);
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 120, '...');
+
+        $post = Post::where('id', $post->id)->update($validatedData);
+
+        if ($post) {
+            # code...
+            return redirect('/dashboard/posts')->with('success', 'Created Post Success!');
+        }else {
+            return redirect('/dashboard/posts')->with('failed', 'Created Post Failed!');
+        }
     }
 
     /**
@@ -117,6 +145,14 @@ class DashboardPostController extends Controller
     public function destroy(Post $post)
     {
         //
+        $post = Post::destroy($post->id);
+
+        if ($post) {
+            # code...
+            return redirect('/dashboard/posts')->with('success', 'Post successfully deleted.');
+        }else {
+            return redirect('/dashboard/posts')->with('failed', 'Failed to delete the post.');
+        }
     }
 
     public function checkSlug(Request $request)
