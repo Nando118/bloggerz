@@ -31,7 +31,13 @@
       <span class="position-absolute badge bg-secondary p-2" style="font-size: 0.8rem">
         <a href="/posts?category={{ $posts[0]->category->slug }}" class="text-decoration-none text-white">{{ $posts[0]->category->name }}</a>
       </span>
-      <img src="https://source.unsplash.com/1200x400/?{{ $posts[0]->category->name }}" class="card-img-top" alt="{{ $posts[0]->category->name }}">
+      @if ($posts[0]->image)
+        <div style="max-height: 400px; overflow: hidden; object-fit: cover;">
+          <img src="{{ asset('storage/' . $posts[0]->image) }}" class="card-img-top" alt="{{ $posts[0]->category->name }}">  
+        </div>        
+      @else
+        <img src="https://source.unsplash.com/1200x400/?{{ $posts[0]->category->name }}" class="card-img-top" alt="{{ $posts[0]->category->name }}">
+      @endif       
       <div class="card-body">
         <h5 class="card-title"><a href="/post/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">{{ $posts[0]->title }}</a></h5>
         <p>
@@ -52,7 +58,13 @@
               <span class="position-absolute badge bg-secondary p-2" style="font-size: 0.8rem">
                 <a href="/posts?category={{ $post->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a>
               </span>
-              <img src="https://source.unsplash.com/500x400/?{{ $post->category->name }}" class="card-img-top" alt="{{ $post->category->name }}">
+              @if ($post->image)
+                <div style="max-height: 400px; overflow: hidden; object-fit: cover;">
+                  <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid" alt="{{ $post->category->name }}">  
+                </div>        
+              @else
+                <img src="https://source.unsplash.com/1200x400/?{{ $post->category->name }}" class="img-fluid" alt="{{ $post->category->name }}">
+              @endif
               <div class="card-body">
                 <h5 class="card-title">
                   <a href="/post/{{ $post->slug }}" class="text-decoration-none text-dark">{{ $post->title }}</a>

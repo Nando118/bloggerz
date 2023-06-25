@@ -8,7 +8,7 @@
   </div>
 
   <div class="col-lg-8">
-    <form action="/dashboard/posts" method="POST" class="mb-5">
+    <form action="/dashboard/posts" method="POST" class="mb-5" enctype="multipart/form-data">
 
       @csrf
 
@@ -41,6 +41,15 @@
             @endif
           @endforeach
         </select>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label @error('image') is-invalid @enderror">Post Image</label>
+        <input class="form-control" type="file" id="image" name="image">
+        @error('image')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
       </div>
       <div class="mb-3">
         {{-- Insert Trix-Editor --}}
